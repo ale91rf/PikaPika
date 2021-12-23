@@ -40,7 +40,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.21'
+        kotlinCompilerVersion '1.5.31'
     }
     packagingOptions {
         resources {
@@ -62,6 +62,10 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_converter_gson_version"
+    implementation "androidx.navigation:navigation-runtime-ktx:$navigation_ktx_version"
+    implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-rc01'
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$android_junit_version"
