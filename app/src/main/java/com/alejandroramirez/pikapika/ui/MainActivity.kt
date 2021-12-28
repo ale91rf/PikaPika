@@ -1,5 +1,6 @@
-package com.alejandroramirez.pikapika
+package com.alejandroramirez.pikapika.ui
 
+import PikaPikaApp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

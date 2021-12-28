@@ -1,4 +1,4 @@
-package com.alejandroramirez.pikapika
+package com.alejandroramirez.pikapika.ui.home
 
 import androidx.lifecycle.ViewModel
 
