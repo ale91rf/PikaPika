@@ -23,8 +23,14 @@ class HomeViewModel(
         viewModelScope.launch {
             getPokemonsUseCase()
                 .flowOn(dispatcher.io())
-                .catch { }
-                .collect { }
+                .catch {
+                    //TODO
+                }
+                .collect { pokemons ->
+                    _state.value = HomeViewState(
+                        pokemons = pokemons
+                    )
+                }
         }
     }
 }

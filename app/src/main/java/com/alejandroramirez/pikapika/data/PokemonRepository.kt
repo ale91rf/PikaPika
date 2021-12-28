@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 class PokemonRepository : PokemonRepository {
-    override fun getPokemons(): Flow<Pokemon> {
+    override fun getPokemons(): Flow<List<Pokemon>> {
         TODO("Not yet implemented")
     }
 }
