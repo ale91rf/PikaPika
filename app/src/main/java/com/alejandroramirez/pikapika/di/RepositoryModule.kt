@@ -7,14 +7,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-
 @InstallIn(SingletonComponent::class)
 @Module
 class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providePokemonRepository(): PokemonRepository {
-        return com.alejandroramirez.pikapika.data.PokemonRepository()
-    }
+    fun providePokemonRepository(): PokemonRepository =
+        com.alejandroramirez.pikapika.data.PokemonRepository()
 }
