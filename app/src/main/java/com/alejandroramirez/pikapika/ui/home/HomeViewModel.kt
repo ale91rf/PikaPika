@@ -1,9 +1,9 @@
 package com.alejandroramirez.pikapika.ui.home
 
+import DefaultDispatcherProvider
+import DispatcherProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alejandroramirez.pikapika.DefaultDispatcherProvider
-import com.alejandroramirez.pikapika.DispatcherProvider
 import com.alejandroramirez.pikapika.domain.model.Pokemon
 import com.alejandroramirez.pikapika.domain.usecase.GetPokemonsUseCase
 import kotlinx.coroutines.flow.*

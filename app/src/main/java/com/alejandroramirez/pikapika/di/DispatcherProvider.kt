@@ -1,5 +1,3 @@
-package com.alejandroramirez.pikapika
-
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
