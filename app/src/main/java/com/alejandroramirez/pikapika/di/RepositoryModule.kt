@@ -1,5 +1,6 @@
 package com.alejandroramirez.pikapika.di
 
+import com.alejandroramirez.pikapika.data.datasource.PokemonCloudDataSource
 import com.alejandroramirez.pikapika.domain.PokemonRepository
 import dagger.Module
 import dagger.Provides
@@ -13,6 +14,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providePokemonRepository(): PokemonRepository =
-        com.alejandroramirez.pikapika.data.PokemonRepository()
+    fun providePokemonRepository(
+        pokemonCloudDataSource: PokemonCloudDataSource
+    ): PokemonRepository =
+        com.alejandroramirez.pikapika.data.PokemonRepository(pokemonCloudDataSource)
 }
