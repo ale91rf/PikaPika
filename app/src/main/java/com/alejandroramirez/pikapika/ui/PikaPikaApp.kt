@@ -19,7 +19,7 @@ fun PikaPikaApp(
             )
         }
         composable(Screen.PokemonDetail.route) { backStackEntry ->
-            PokemonDetailScreen()
+            PokemonDetailScreen(onBackPress = appState::navigateBack)
         }
     }
 }

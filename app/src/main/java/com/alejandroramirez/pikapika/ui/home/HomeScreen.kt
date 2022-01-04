@@ -49,7 +49,7 @@ fun HomeContent(
 }
 
 @Composable
-fun HomeAppBar(
+private fun HomeAppBar(
     backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
