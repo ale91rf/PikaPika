@@ -1,17 +1,18 @@
 package com.alejandroramirez.pikapika.ui.home
 
-import DefaultDispatcherProvider
-import DispatcherProvider
+import com.alejandroramirez.pikapika.di.DispatcherProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alejandroramirez.pikapika.domain.model.Pokemon
 import com.alejandroramirez.pikapika.domain.usecase.GetPokemonsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class HomeViewModel(
-    dispatcher: DispatcherProvider = DefaultDispatcherProvider(),
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val dispatcher: DispatcherProvider,
     private val getPokemonsUseCase: GetPokemonsUseCase
 ) : ViewModel() {
 

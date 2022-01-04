@@ -7,8 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 
-@InstallIn(ActivityRetainedComponent::class)
 @Module
+@InstallIn(ActivityRetainedComponent::class)
 class UseCaseModule {
 
     @Provides
