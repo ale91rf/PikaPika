@@ -4,6 +4,7 @@ import androidx.navigation.compose.composable
 import com.alejandroramirez.pikapika.PikaPikaAppState
 import com.alejandroramirez.pikapika.Screen
 import com.alejandroramirez.pikapika.rememberPikaPikaAppState
+import com.alejandroramirez.pikapika.ui.pokemondetail.PokemonDetailScreen
 
 @Composable
 fun PikaPikaApp(
@@ -11,11 +12,14 @@ fun PikaPikaApp(
 ) {
     NavHost(navController = appState.navController, startDestination = Screen.Home.route) {
         composable(Screen.Home.route) { backStackEntry ->
-            Home(
+            HomeScreen(
                 navigateToPokemonDetail = { pokemonId ->
                     appState.navigateToPokemonDetail(pokemonId, backStackEntry)
                 }
             )
+        }
+        composable(Screen.PokemonDetail.route) { backStackEntry ->
+            PokemonDetailScreen()
         }
     }
 }

@@ -10,7 +10,7 @@ import com.alejandroramirez.pikapika.domain.model.Pokemon
 import com.alejandroramirez.pikapika.ui.home.PokemonList
 
 @Composable
-fun Home(
+fun HomeScreen(
     navigateToPokemonDetail: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
