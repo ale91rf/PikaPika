@@ -3,4 +3,6 @@
     <string name="show_less">Show less</string>
     <string name="show_more">Show more</string>
     <string name="back_text">Back</string>
+    <string name="weight">Weight: %1$s hectograms</string>
+    <string name="height">Height: %1$s decimetres</string>
 </resources>

@@ -1,9 +1,9 @@
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.alejandroramirez.pikapika.PikaPikaAppState
-import com.alejandroramirez.pikapika.Screen
-import com.alejandroramirez.pikapika.rememberPikaPikaAppState
+import com.alejandroramirez.pikapika.ui.PikaPikaAppState
+import com.alejandroramirez.pikapika.ui.Screen
+import com.alejandroramirez.pikapika.ui.rememberPikaPikaAppState
 import com.alejandroramirez.pikapika.ui.pokemondetail.PokemonDetailScreen
 
 @Composable

@@ -1,7 +1,6 @@
-package com.alejandroramirez.pikapika
+package com.alejandroramirez.pikapika.ui
 
 import android.content.Context
-import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -13,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object PokemonDetail : Screen("pokemon/{pokemonUri}") {
-        fun createRoute(pokemonUri: String) = "pokemon/$pokemonUri"
+        fun createRoute(pokemonId: Int) = "pokemon/$pokemonId"
     }
 }
 
@@ -33,10 +32,9 @@ class PikaPikaAppState(
         navController.popBackStack()
     }
 
-    fun navigateToPokemonDetail(pokemonId: String, from: NavBackStackEntry) {
+    fun navigateToPokemonDetail(pokemonId: Int, from: NavBackStackEntry) {
         if (from.lifecycleIsResumed()) {
-            val encodedUri = Uri.encode(pokemonId)
-            navController.navigate(Screen.PokemonDetail.createRoute(encodedUri))
+            navController.navigate(Screen.PokemonDetail.createRoute(pokemonId))
         }
     }
 }

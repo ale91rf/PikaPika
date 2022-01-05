@@ -1,4 +1,3 @@
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -18,7 +17,7 @@ import com.alejandroramirez.pikapika.ui.home.PokemonList
 
 @Composable
 fun HomeScreen(
-    navigateToPokemonDetail: (String) -> Unit,
+    navigateToPokemonDetail: (Int) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val viewState by viewModel.state.collectAsState()
@@ -33,7 +32,7 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     pokemons: List<Pokemon>,
-    navigateToPokemonDetail: (String) -> Unit
+    navigateToPokemonDetail: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier

@@ -23,7 +23,7 @@ import com.alejandroramirez.pikapika.R
 @Composable
 fun PokemonList(
     pokemons: List<Pokemon>,
-    navigateToPokemonDetail: (String) -> Unit
+    navigateToPokemonDetail: (Int) -> Unit
 ) {
     LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
         items(pokemons, key = { it.id }) { pokemon ->
@@ -36,7 +36,7 @@ fun PokemonList(
 @Composable
 fun PokemonListItem(
     pokemon: Pokemon,
-    onClick: (String) -> Unit
+    onClick: (Int) -> Unit
 ) {
     Card(
         onClick = { onClick(pokemon.id) },
@@ -67,7 +67,10 @@ fun PokemonListItem(
                 )
                 if (expanded) {
                     Text(
-                        text = pokemon.description
+                        text = stringResource(R.string.weight, pokemon.weight.toString())
+                    )
+                    Text(
+                        text = stringResource(R.string.height, pokemon.height.toString())
                     )
                 }
             }
