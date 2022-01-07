@@ -8,6 +8,7 @@ import retrofit2.http.Url
 
 
 interface PokemonRetrofitService {
+    //TODO add pagination
     @GET("pokemon?limit=20/")
     fun getPokemons(): Call<PokemonsResponseApiModel>
 

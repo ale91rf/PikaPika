@@ -1,14 +1,12 @@
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alejandroramirez.pikapika.ui.home.HomeViewModel
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.alejandroramirez.pikapika.R
@@ -43,7 +41,11 @@ fun HomeContent(
             backgroundColor = appBarColor,
             modifier = Modifier.fillMaxWidth()
         )
-        PokemonList(pokemons = pokemons, navigateToPokemonDetail = navigateToPokemonDetail)
+        if (pokemons.isEmpty()) {
+            FullScreenLoading()
+        } else {
+            PokemonList(pokemons = pokemons, navigateToPokemonDetail = navigateToPokemonDetail)
+        }
     }
 }
 
@@ -59,4 +61,15 @@ private fun HomeAppBar(
         backgroundColor = backgroundColor,
         modifier = modifier
     )
+}
+
+@Composable
+private fun FullScreenLoading(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .wrapContentSize(Alignment.Center)
+    ) {
+        CircularProgressIndicator()
+    }
 }
