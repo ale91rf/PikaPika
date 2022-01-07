@@ -8,10 +8,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.alejandroramirez.pikapika.ui.Arg.POKEMON_ID_ARGUMENT
+
+object Arg {
+    const val POKEMON_ID_ARGUMENT = "pokemonId"
+}
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")
-    object PokemonDetail : Screen("pokemon/{pokemonUri}") {
+    object PokemonDetail : Screen("pokemon/{$POKEMON_ID_ARGUMENT}") {
         fun createRoute(pokemonId: Int) = "pokemon/$pokemonId"
     }
 }
