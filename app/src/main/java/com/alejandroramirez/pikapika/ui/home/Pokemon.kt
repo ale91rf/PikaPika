@@ -3,9 +3,8 @@ package com.alejandroramirez.pikapika.ui.home
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -18,6 +17,10 @@ import androidx.compose.ui.unit.dp
 import com.alejandroramirez.pikapika.domain.model.Pokemon
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.layout.ContentScale
+import coil.compose.rememberImagePainter
+import coil.size.OriginalSize
 import com.alejandroramirez.pikapika.R
 
 @Composable
@@ -59,12 +62,41 @@ fun PokemonListItem(
                     .weight(1f)
                     .padding(12.dp)
             ) {
-                Text(
-                    text = pokemon.name,
-                    style = MaterialTheme.typography.h4.copy(
-                        fontWeight = FontWeight.ExtraBold
-                    )
+                Image(
+                    painter = rememberImagePainter(
+                        data = pokemon.imageUrl,
+                        builder = {
+                            crossfade(true)
+                            size(OriginalSize)
+                        }
+                    ),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
                 )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = pokemon.name,
+                        style = MaterialTheme.typography.h4.copy(
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    )
+                    IconButton(
+                        onClick = { expanded = !expanded }) {
+                        Icon(
+                            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                            contentDescription = if (expanded) {
+                                stringResource(R.string.show_less)
+                            } else {
+                                stringResource(R.string.show_more)
+                            }
+                        )
+                    }
+                }
                 if (expanded) {
                     Text(
                         text = stringResource(R.string.weight, pokemon.weight.toString())
@@ -73,16 +105,6 @@ fun PokemonListItem(
                         text = stringResource(R.string.height, pokemon.height.toString())
                     )
                 }
-            }
-            IconButton(onClick = { expanded = !expanded }) {
-                Icon(
-                    imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                    contentDescription = if (expanded) {
-                        stringResource(R.string.show_less)
-                    } else {
-                        stringResource(R.string.show_more)
-                    }
-                )
             }
         }
     }
