@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.alejandroramirez.pikapika.domain.model.Pokemon
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
@@ -74,12 +75,28 @@ fun PokemonListItem(
                     modifier = Modifier
                         .fillMaxWidth()
                 )
-                Text(
-                    text = pokemon.name,
-                    style = MaterialTheme.typography.h4.copy(
-                        fontWeight = FontWeight.ExtraBold
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = pokemon.name,
+                        style = MaterialTheme.typography.h4.copy(
+                            fontWeight = FontWeight.ExtraBold
+                        )
                     )
-                )
+                    IconButton(
+                        onClick = { expanded = !expanded }) {
+                        Icon(
+                            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                            contentDescription = if (expanded) {
+                                stringResource(R.string.show_less)
+                            } else {
+                                stringResource(R.string.show_more)
+                            }
+                        )
+                    }
+                }
                 if (expanded) {
                     Text(
                         text = stringResource(R.string.weight, pokemon.weight.toString())
@@ -88,16 +105,6 @@ fun PokemonListItem(
                         text = stringResource(R.string.height, pokemon.height.toString())
                     )
                 }
-            }
-            IconButton(onClick = { expanded = !expanded }) {
-                Icon(
-                    imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                    contentDescription = if (expanded) {
-                        stringResource(R.string.show_less)
-                    } else {
-                        stringResource(R.string.show_more)
-                    }
-                )
             }
         }
     }
