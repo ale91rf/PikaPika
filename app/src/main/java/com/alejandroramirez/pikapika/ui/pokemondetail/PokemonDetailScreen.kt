@@ -1,22 +1,19 @@
 package com.alejandroramirez.pikapika.ui.pokemondetail
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alejandroramirez.pikapika.R
+import com.alejandroramirez.pikapika.ui.viewcomponent.FullScreenLoading
 
 @Composable
 fun PokemonDetailScreen(
@@ -39,19 +36,47 @@ fun PokemonDetailContent(
             .fillMaxWidth()
     ) {
         val appBarColor = MaterialTheme.colors.primary
+        PokemonDetailAppBar(
+            backgroundColor = appBarColor,
+            modifier = Modifier.fillMaxWidth(),
+            onBackPress = onBackPress
+        )
+        when {
+            viewState.isLoading -> {
+                FullScreenLoading()
+            }
+            viewState.error != null -> {
+                PokemonDetailError(viewState.error)
+            }
+            viewState.pokemon != null -> {
+                print(viewState.pokemon)
+            }
+        }
     }
 }
 
 @Composable
-private fun TopAppBar(
+fun PokemonDetailError(error: PokemonDetailErrorType) {
+    TODO("Not yet implemented")
+}
+
+@Composable
+private fun PokemonDetailAppBar(
+    backgroundColor: Color,
+    modifier: Modifier = Modifier,
     onBackPress: () -> Unit
 ) {
-    Row(Modifier.fillMaxWidth()) {
-        IconButton(onClick = onBackPress) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = stringResource(R.string.back_text)
-            )
-        }
-    }
+    TopAppBar(
+        navigationIcon = {
+            IconButton(onClick = onBackPress) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = stringResource(R.string.back_text)
+                )
+            }
+        },
+        title = { Text(text = "") },
+        backgroundColor = backgroundColor,
+        modifier = modifier
+    )
 }

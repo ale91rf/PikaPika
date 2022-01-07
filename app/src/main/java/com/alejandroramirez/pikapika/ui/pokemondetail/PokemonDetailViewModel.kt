@@ -31,18 +31,19 @@ class PokemonDetailViewModel @Inject constructor(
                     .flowOn(dispatcher.io())
                     .catch { setError(PokemonDetailErrorType.NETWORK) }
                     .collect { pokemon ->
-                        _state.value = PokemonDetailViewState(pokemon = pokemon)
+                        _state.value = PokemonDetailViewState(pokemon = pokemon, isLoading = false)
                     }
             }
         } ?: setError(PokemonDetailErrorType.INVALID_ID)
     }
 
     private fun setError(error: PokemonDetailErrorType) {
-        _state.value = PokemonDetailViewState(error = error)
+        _state.value = PokemonDetailViewState(error = error, isLoading = false)
     }
 }
 
 data class PokemonDetailViewState(
     val pokemon: Pokemon? = null,
-    val error: PokemonDetailErrorType? = null
+    val error: PokemonDetailErrorType? = null,
+    val isLoading: Boolean = true
 )
