@@ -43,6 +43,7 @@ fun PokemonDetailContent(
             modifier = Modifier.fillMaxWidth(),
             onBackPress = onBackPress
         )
+        //TODO extract this view logic by delegation or something like that
         when {
             viewState.isLoading -> {
                 FullScreenLoading()
@@ -60,6 +61,7 @@ fun PokemonDetailContent(
 @Composable
 fun PokemonDetailError(error: PokemonDetailErrorType) {
     val context = LocalContext.current
+    //TODO extract this view logic by delegation or something like that
     val message = when (error) {
         PokemonDetailErrorType.NETWORK -> stringResource(R.string.network_error)
         PokemonDetailErrorType.INVALID_ID -> stringResource(R.string.default_error)

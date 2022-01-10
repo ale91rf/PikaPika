@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
                 .flowOn(dispatcher.io())
                 .catch {
                     _state.value = HomeViewState(
-                        errorMessage = "",
+                        error = HomeErrorType.NETWORK,
                         isLoading = false
                     )
                 }
@@ -42,6 +42,6 @@ class HomeViewModel @Inject constructor(
 
 data class HomeViewState(
     val pokemons: List<Pokemon> = emptyList(),
-    val errorMessage: String? = null,
+    val error: HomeErrorType? = null,
     val isLoading: Boolean = true
 )
