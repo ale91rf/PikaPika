@@ -38,20 +38,31 @@ fun PokemonDetailContent(
             .fillMaxWidth()
     ) {
         val appBarColor = MaterialTheme.colors.primary
-        PokemonDetailAppBar(
-            backgroundColor = appBarColor,
-            modifier = Modifier.fillMaxWidth(),
-            onBackPress = onBackPress
-        )
         //TODO extract this view logic by delegation or something like that
         when {
             viewState.isLoading -> {
+                PokemonDetailAppBar(
+                    modifier = Modifier.fillMaxWidth(),
+                    backgroundColor = appBarColor,
+                    onBackPress = onBackPress
+                )
                 FullScreenLoading()
             }
             viewState.error != null -> {
+                PokemonDetailAppBar(
+                    modifier = Modifier.fillMaxWidth(),
+                    backgroundColor = appBarColor,
+                    onBackPress = onBackPress
+                )
                 PokemonDetailError(viewState.error)
             }
             viewState.pokemon != null -> {
+                PokemonDetailAppBar(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = viewState.pokemon.name,
+                    backgroundColor = appBarColor,
+                    onBackPress = onBackPress
+                )
                 print(viewState.pokemon)
             }
         }
@@ -71,8 +82,9 @@ fun PokemonDetailError(error: PokemonDetailErrorType) {
 
 @Composable
 private fun PokemonDetailAppBar(
-    backgroundColor: Color,
     modifier: Modifier = Modifier,
+    title: String = "",
+    backgroundColor: Color,
     onBackPress: () -> Unit
 ) {
     TopAppBar(
@@ -84,7 +96,7 @@ private fun PokemonDetailAppBar(
                 )
             }
         },
-        title = { Text(text = "") },
+        title = { Text(text = title) },
         backgroundColor = backgroundColor,
         modifier = modifier
     )
