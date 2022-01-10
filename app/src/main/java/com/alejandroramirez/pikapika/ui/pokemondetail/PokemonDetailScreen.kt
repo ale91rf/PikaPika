@@ -1,5 +1,6 @@
 package com.alejandroramirez.pikapika.ui.pokemondetail
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -57,7 +59,12 @@ fun PokemonDetailContent(
 
 @Composable
 fun PokemonDetailError(error: PokemonDetailErrorType) {
-    TODO("Not yet implemented")
+    val context = LocalContext.current
+    val message = when (error) {
+        PokemonDetailErrorType.NETWORK -> stringResource(R.string.network_error)
+        PokemonDetailErrorType.INVALID_ID -> stringResource(R.string.default_error)
+    }
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
 
 @Composable
