@@ -1,3 +1,4 @@
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -8,10 +9,15 @@ import com.alejandroramirez.pikapika.ui.home.HomeViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.alejandroramirez.pikapika.R
 import com.alejandroramirez.pikapika.domain.model.Pokemon
+import com.alejandroramirez.pikapika.ui.home.HomeErrorType
+import com.alejandroramirez.pikapika.ui.home.HomeViewState
 import com.alejandroramirez.pikapika.ui.home.PokemonList
+import com.alejandroramirez.pikapika.ui.pokemondetail.PokemonDetailErrorType
+import com.alejandroramirez.pikapika.ui.viewcomponent.FullScreenLoading
 
 @Composable
 fun HomeScreen(
@@ -21,7 +27,7 @@ fun HomeScreen(
     val viewState by viewModel.state.collectAsState()
     Surface(Modifier.fillMaxSize()) {
         HomeContent(
-            pokemons = viewState.pokemons,
+            viewState = viewState,
             navigateToPokemonDetail = navigateToPokemonDetail
         )
     }
@@ -29,7 +35,7 @@ fun HomeScreen(
 
 @Composable
 fun HomeContent(
-    pokemons: List<Pokemon>,
+    viewState: HomeViewState,
     navigateToPokemonDetail: (Int) -> Unit
 ) {
     Column(
@@ -41,10 +47,20 @@ fun HomeContent(
             backgroundColor = appBarColor,
             modifier = Modifier.fillMaxWidth()
         )
-        if (pokemons.isEmpty()) {
-            FullScreenLoading()
-        } else {
-            PokemonList(pokemons = pokemons, navigateToPokemonDetail = navigateToPokemonDetail)
+        //TODO extract this view logic by delegation or something like that
+        when {
+            viewState.isLoading -> {
+                FullScreenLoading()
+            }
+            viewState.error != null -> {
+                HomeError(viewState.error)
+            }
+            !viewState.pokemons.isNullOrEmpty() -> {
+                PokemonList(
+                    pokemons = viewState.pokemons,
+                    navigateToPokemonDetail = navigateToPokemonDetail
+                )
+            }
         }
     }
 }
@@ -64,12 +80,11 @@ private fun HomeAppBar(
 }
 
 @Composable
-private fun FullScreenLoading(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.Center)
-    ) {
-        CircularProgressIndicator()
+fun HomeError(error: HomeErrorType) {
+    val context = LocalContext.current
+    //TODO extract this view logic by delegation or something like that
+    val message = when (error) {
+        HomeErrorType.NETWORK -> stringResource(R.string.default_error)
     }
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
