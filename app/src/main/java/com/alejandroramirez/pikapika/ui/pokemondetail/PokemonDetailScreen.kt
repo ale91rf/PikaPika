@@ -1,7 +1,12 @@
 package com.alejandroramirez.pikapika.ui.pokemondetail
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -10,11 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberImagePainter
+import coil.size.OriginalSize
 import com.alejandroramirez.pikapika.R
+import com.alejandroramirez.pikapika.domain.model.Pokemon
 import com.alejandroramirez.pikapika.ui.viewcomponent.FullScreenLoading
 
 @Composable
@@ -63,7 +73,7 @@ fun PokemonDetailContent(
                     backgroundColor = appBarColor,
                     onBackPress = onBackPress
                 )
-                print(viewState.pokemon)
+                PokemonDetail(viewState.pokemon)
             }
         }
     }
@@ -100,4 +110,44 @@ private fun PokemonDetailAppBar(
         backgroundColor = backgroundColor,
         modifier = modifier
     )
+}
+
+@Composable
+private fun PokemonDetail(
+    pokemon: Pokemon
+) {
+    val scrollState = rememberScrollState()
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .scrollable(
+                state = scrollState,
+                orientation = Orientation.Vertical
+            )
+            .padding(12.dp)
+    ) {
+        Image(
+            painter = rememberImagePainter(
+                data = pokemon.imageUrl,
+                builder = {
+                    crossfade(true)
+                    size(OriginalSize)
+                }
+            ),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+        Text(
+            text = stringResource(R.string.weight, pokemon.weight.toString()),
+            style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.ExtraBold),
+            modifier = Modifier.padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 0.dp)
+        )
+        Text(
+            text = stringResource(R.string.height, pokemon.height.toString()),
+            style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.ExtraBold),
+            modifier = Modifier.padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 0.dp)
+        )
+    }
 }
