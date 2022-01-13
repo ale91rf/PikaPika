@@ -7,16 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alejandroramirez.pikapika.ui.home.HomeViewModel
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.alejandroramirez.pikapika.R
-import com.alejandroramirez.pikapika.domain.model.Pokemon
 import com.alejandroramirez.pikapika.ui.home.HomeErrorType
 import com.alejandroramirez.pikapika.ui.home.HomeViewState
 import com.alejandroramirez.pikapika.ui.home.PokemonList
-import com.alejandroramirez.pikapika.ui.pokemondetail.PokemonDetailErrorType
 import com.alejandroramirez.pikapika.ui.viewcomponent.FullScreenLoading
 
 @Composable

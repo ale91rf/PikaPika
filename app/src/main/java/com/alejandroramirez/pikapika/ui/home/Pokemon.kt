@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.alejandroramirez.pikapika.domain.model.Pokemon
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize

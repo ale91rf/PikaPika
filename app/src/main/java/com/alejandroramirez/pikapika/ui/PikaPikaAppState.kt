@@ -26,12 +26,11 @@ fun rememberPikaPikaAppState(
     navController: NavHostController = rememberNavController(),
     context: Context = LocalContext.current
 ) = remember(navController, context) {
-    PikaPikaAppState(navController, context)
+    PikaPikaAppState(navController)
 }
 
 class PikaPikaAppState(
-    val navController: NavHostController,
-    private val context: Context
+    val navController: NavHostController
 ) {
     fun navigateBack() {
         navController.popBackStack()
