@@ -5,4 +5,6 @@
     <string name="back_text">Back</string>
     <string name="weight">Weight: %1$s hectograms</string>
     <string name="height">Height: %1$s decimetres</string>
+    <string name="network_error">There was an error getting data</string>
+    <string name="default_error">There was an error</string>
 </resources>

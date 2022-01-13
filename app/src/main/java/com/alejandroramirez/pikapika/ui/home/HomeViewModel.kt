@@ -25,11 +25,15 @@ class HomeViewModel @Inject constructor(
             getPokemonsUseCase()
                 .flowOn(dispatcher.io())
                 .catch {
-                    //TODO
+                    _state.value = HomeViewState(
+                        error = HomeErrorType.NETWORK,
+                        isLoading = false
+                    )
                 }
                 .collect { pokemons ->
                     _state.value = HomeViewState(
-                        pokemons = pokemons
+                        pokemons = pokemons,
+                        isLoading = false
                     )
                 }
         }
@@ -38,5 +42,6 @@ class HomeViewModel @Inject constructor(
 
 data class HomeViewState(
     val pokemons: List<Pokemon> = emptyList(),
-    val errorMessage: String? = null
+    val error: HomeErrorType? = null,
+    val isLoading: Boolean = true
 )

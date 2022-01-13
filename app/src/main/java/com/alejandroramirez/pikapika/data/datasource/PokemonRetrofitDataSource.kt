@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flow
 class PokemonRetrofitDataSource(
     private val pokemonRetrofitService: PokemonRetrofitService
 ) : PokemonCloudDataSource {
+
     override fun getPokemons(): Flow<List<Pokemon>> = flow {
         val pokemons = pokemonRetrofitService.getPokemons().execute().body()!!.pokemons
         emit(pokemons.map { pokemonApiModel ->
@@ -18,5 +19,11 @@ class PokemonRetrofitDataSource(
         }.map { pokemonDetailApiModel ->
             mapPokemonToDomain(pokemonDetailApiModel)
         })
+    }
+
+    override fun getPokemonById(id: String): Flow<Pokemon> = flow {
+        emit(
+            mapPokemonToDomain(pokemonRetrofitService.getPokemonById(id).execute().body()!!)
+        )
     }
 }

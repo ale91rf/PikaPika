@@ -9,4 +9,6 @@ class PokemonRepository(
     private val pokemonCloudDataSource: PokemonCloudDataSource
 ) : PokemonRepository {
     override fun getPokemons(): Flow<List<Pokemon>> = pokemonCloudDataSource.getPokemons()
+
+    override fun getPokemonById(id: String): Flow<Pokemon> = pokemonCloudDataSource.getPokemonById(id)
 }
