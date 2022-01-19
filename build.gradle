@@ -23,7 +23,7 @@ buildscript {
         mockito_version = "3.2.0"
         mockito_core_version = "4.2.0"
         mockito_inline_version = "2.13.0"
-        coroutines_version = "1.5.0"
+        coroutines_version = "1.6.0-RC"
     }
     repositories {
         google()

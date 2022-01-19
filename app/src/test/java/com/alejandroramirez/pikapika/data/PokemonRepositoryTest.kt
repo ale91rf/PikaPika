@@ -6,6 +6,7 @@ import com.alejandroramirez.pikapika.domain.PokemonRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -19,7 +20,7 @@ class PokemonRepositoryTest {
         PokemonRepository(pokemonCloudDataSource)
 
     @Test
-    fun `should get pokemons when invoking`() = runBlockingTest {
+    fun `should get pokemons when invoking`() = runTest {
         val expectedResult = listOf(
             PokemonObjectMother.createPokemon()
         )
