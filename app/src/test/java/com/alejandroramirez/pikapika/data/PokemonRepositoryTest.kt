@@ -4,8 +4,8 @@ import com.alejandroramirez.pikapika.data.datasource.PokemonCloudDataSource
 import com.alejandroramirez.pikapika.domain.PokemonObjectMother
 import com.alejandroramirez.pikapika.domain.PokemonRepository
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -32,5 +32,12 @@ class PokemonRepositoryTest {
         actualResult.collect {
             assertEquals(expectedResult, it)
         }
+    }
+
+    @Test(expected = Exception::class)
+    fun `should return an error when got an error from cloud data source`() = runTest {
+        whenever(pokemonCloudDataSource.getPokemons()).thenReturn(flow { throw Exception() })
+
+        pokemonRepository.getPokemons().collect()
     }
 }
