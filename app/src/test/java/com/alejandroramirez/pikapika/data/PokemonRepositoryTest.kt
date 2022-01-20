@@ -35,9 +35,34 @@ class PokemonRepositoryTest {
     }
 
     @Test(expected = Exception::class)
-    fun `should return an error when got an error from cloud data source`() = runTest {
-        whenever(pokemonCloudDataSource.getPokemons()).thenReturn(flow { throw Exception() })
+    fun `should return an error when got an error from cloud data source getting pokemons`() =
+        runTest {
+            whenever(pokemonCloudDataSource.getPokemons()).thenReturn(flow { throw Exception() })
 
-        pokemonRepository.getPokemons().collect()
+            pokemonRepository.getPokemons().collect()
+        }
+
+    @Test
+    fun `should return a pokemon when invoking by id`() = runTest {
+        val pokemonId = 1
+        val expectedResult = PokemonObjectMother.createPokemon(id = pokemonId)
+        whenever(pokemonCloudDataSource.getPokemonById(pokemonId.toString()))
+            .thenReturn(flowOf(expectedResult))
+
+        val actualResult = pokemonRepository.getPokemonById(pokemonId.toString())
+
+        actualResult.collect {
+            assertEquals(expectedResult, it)
+        }
     }
+
+    @Test(expected = Exception::class)
+    fun `should return an error when got an error from cloud data source getting a pokemon by id`() =
+        runTest {
+            val pokemonId = "1"
+            whenever(pokemonCloudDataSource.getPokemonById(pokemonId))
+                .thenReturn(flow { throw Exception() })
+
+            pokemonRepository.getPokemonById(pokemonId).collect()
+        }
 }
