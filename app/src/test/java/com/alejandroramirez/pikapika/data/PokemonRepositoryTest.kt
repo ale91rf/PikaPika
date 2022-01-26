@@ -20,7 +20,7 @@ class PokemonRepositoryTest {
         PokemonRepository(pokemonCloudDataSource)
 
     @Test
-    fun `should get pokemons when invoking`() = runTest {
+    fun `should get pokemons when invoking and got pokemons from cloud data source`() = runTest {
         val expectedResult = listOf(
             PokemonObjectMother.createPokemon()
         )
@@ -43,7 +43,7 @@ class PokemonRepositoryTest {
         }
 
     @Test
-    fun `should return a pokemon when invoking by id`() = runTest {
+    fun `should return a pokemon when invoking by id and got that pokemon from cloud data source`() = runTest {
         val pokemonId = 1
         val expectedResult = PokemonObjectMother.createPokemon(id = pokemonId)
         whenever(pokemonCloudDataSource.getPokemonById(pokemonId.toString()))
