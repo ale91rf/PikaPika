@@ -4,6 +4,7 @@ import com.alejandroramirez.pikapika.domain.PokemonObjectMother
 import com.alejandroramirez.pikapika.domain.usecase.GetPokemonsUseCase
 import com.alejandroramirez.pikapika.ui.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -25,25 +26,41 @@ class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel
 
     @Test
-    fun `should get all pokemons when starting`() = runTest {
-            val pokemons = listOf(
-                PokemonObjectMother.createPokemon()
+    fun `should set all pokemons when starting and got them from the use case`() = runTest {
+        val pokemons = listOf(
+            PokemonObjectMother.createPokemon()
+        )
+        val expectedResult = HomeViewState(
+            pokemons = pokemons,
+            isLoading = false
+        )
+        whenever(getPokemonsUseCase()).thenReturn(
+            flowOf(
+                pokemons
             )
-            val expectedResult = HomeViewState(
-                pokemons = pokemons,
-                isLoading = false
-            )
-            whenever(getPokemonsUseCase()).thenReturn(
-                flowOf(
-                    pokemons
-                )
-            )
+        )
 
-            homeViewModel = HomeViewModel(
-                dispatcher = coroutinesTestRule.testDispatcherProvider,
-                getPokemonsUseCase = getPokemonsUseCase
-            )
+        homeViewModel = HomeViewModel(
+            dispatcher = coroutinesTestRule.testDispatcherProvider,
+            getPokemonsUseCase = getPokemonsUseCase
+        )
 
-            assertEquals(homeViewModel.state.value, expectedResult)
-        }
+        assertEquals(homeViewModel.state.value, expectedResult)
+    }
+
+    @Test
+    fun `should set a NETWORK error when starting with an error from the use case`() = runTest {
+        val expectedResult = HomeViewState(
+            error = HomeErrorType.NETWORK,
+            isLoading = false
+        )
+        whenever(getPokemonsUseCase()).thenReturn(flow { throw Exception() })
+
+        homeViewModel = HomeViewModel(
+            dispatcher = coroutinesTestRule.testDispatcherProvider,
+            getPokemonsUseCase = getPokemonsUseCase
+        )
+
+        assertEquals(homeViewModel.state.value, expectedResult)
+    }
 }
