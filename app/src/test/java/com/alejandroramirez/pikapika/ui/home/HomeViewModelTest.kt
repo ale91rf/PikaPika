@@ -26,7 +26,7 @@ class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel
 
     @Test
-    fun `should set all pokemons when starting and got them from the use case`() = runTest {
+    fun `should set all pokemons with the state when starting and got them from the use case`() = runTest {
         val pokemons = listOf(
             PokemonObjectMother.createPokemon()
         )
@@ -49,7 +49,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `should set a NETWORK error when starting with an error from the use case`() = runTest {
+    fun `should set a NETWORK error with the state when starting with an error from the use case`() = runTest {
         val expectedResult = HomeViewState(
             error = HomeErrorType.NETWORK,
             isLoading = false

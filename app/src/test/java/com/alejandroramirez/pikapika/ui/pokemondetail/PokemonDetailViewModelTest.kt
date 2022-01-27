@@ -5,6 +5,7 @@ import com.alejandroramirez.pikapika.domain.PokemonObjectMother
 import com.alejandroramirez.pikapika.domain.usecase.GetPokemonByIdUseCase
 import com.alejandroramirez.pikapika.ui.Arg
 import com.alejandroramirez.pikapika.ui.CoroutineTestRule
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -58,4 +59,24 @@ class PokemonDetailViewModelTest {
 
         assertEquals(pokemonDetailViewModel.state.value, expectedResult)
     }
+
+    @Test
+    fun `should set a NETWORK error with the state when starting with an error from the use case`() =
+        runTest {
+            val pokemonId = 1
+            val expectedResult = PokemonDetailViewState(
+                error = PokemonDetailErrorType.NETWORK,
+                isLoading = false
+            )
+            whenever(stateHandle.get<String>(Arg.POKEMON_ID_ARGUMENT)).thenReturn(pokemonId.toString())
+            whenever(getPokemonByIdUseCase(pokemonId.toString())).thenReturn(flow { throw Exception() })
+
+            pokemonDetailViewModel = PokemonDetailViewModel(
+                dispatcher = coroutinesTestRule.testDispatcherProvider,
+                stateHandle = stateHandle,
+                getPokemonByIdUseCase = getPokemonByIdUseCase
+            )
+
+            assertEquals(pokemonDetailViewModel.state.value, expectedResult)
+        }
 }
